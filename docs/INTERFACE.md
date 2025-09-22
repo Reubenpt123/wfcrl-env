@@ -46,7 +46,7 @@ interface = FastFarmInterface(config, fast_farm_executable=path_to_exe)
 
 
 **Creating an interface from existing configuration files:**
-Alternatively, if you already have your simulation fils ready, you can just point towards the `.fstf` file:
+Alternatively, if you already have your simulation files ready, you can just point towards the `.fstf` file:
 ```
 ff_interface = FastFarmInterface(fstf_file=path_to_fstf)
 ```
