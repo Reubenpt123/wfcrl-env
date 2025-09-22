@@ -21,7 +21,7 @@ The root name of the environment is associated with a specific layout, of arrang
 | Ablaincourt                      | 7                  | Inspired by layout of the Ablaincourt farm    (Duc et al, 2019)            |
 | Turb16_TCRWP                    | 16                 | Layout of the [Total Control Reference Wind Power Plant](https://farmconners.readthedocs.io/en/latest/provided_data_sets.html) (TC RWP) (the first 16 turbines)   |
 | Turb6_Row2                      | 6                  | Custom case  - 2 rows of 3 turbines                                  |
-| Turb16_Row5                     | 16                 | Layout of the first 32 turbines in the the CL-Windcon project [as implemented in WFSim](https://github.com/TUDelft-DataDrivenControl/WFSim/blob/master/layoutDefinitions/layoutSet_clwindcon_80turb.m)           |
+| Turb16_Row5                     | 16                 | Layout of the first 32 turbines in the CL-Windcon project [as implemented in WFSim](https://github.com/TUDelft-DataDrivenControl/WFSim/blob/master/layoutDefinitions/layoutSet_clwindcon_80turb.m)           |
 | Turb32_Row5                     | 32                 | Layout of the farm used in the                            |
 | TurbX_Row1 for X in [1, 12] | X                  | Procedurally generated single row layout with X turbines, |
 | Ormonde                          | 31                 | Layout of the Ormonde Offshore Wind Farm                                             |
@@ -75,7 +75,7 @@ This requires you to have *cmake* and an MPI implementation like *OpenMPI 3*.
 1. Download the compiled FAST.Farm 3.5.1.binaries [here](https://github.com/OpenFAST/openfast/releases/tag/v3.5.1).
 
 2. Download **BOTH** Windows MPI setup (.exe) and MPI SDK (.msi) and install them from (https://www.microsoft.com/en-us/download/details.aspx?id=100593)
-You can check your installation by entering : `set MSMPI` from `C:\Windows\System32` in the command prompt. You should obtain the following:
+You can check your installation by entering: `set MSMPI` from `C:\Windows\System32` in the command prompt. You should obtain the following:
 
 ```
 MSMPI_BENCHMARKS=C:\Program Files\Microsoft MPI\Benchmarks\
@@ -118,7 +118,7 @@ interface = FastFarmInterface(config, fast_farm_executable=path_to_exe)
 
 
 **Creating an interface from existing configuration files:**
-Alternatively, if you already have your simulation fils ready, you can just point towards the `.fstf` file:
+Alternatively, if you already have your simulation files ready, you can just point towards the `.fstf` file:
 ```
 ff_interface = FastFarmInterface(fstf_file=path_to_fstf)
 ```

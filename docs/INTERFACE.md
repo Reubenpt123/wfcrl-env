@@ -7,7 +7,7 @@
 This assumes that you already have compiled FAST.Farm binaries. If not you can download them [here](https://github.com/OpenFAST/openfast/releases/tag/v3.5.1). This interface has been tested with FAST.Farm 3.5.1.
 
 1. Download **BOTH** Windows MPI setup (.exe) and MPI SDK (.msi) and install them from (https://www.microsoft.com/en-us/download/details.aspx?id=100593)
-You can check your installation by enBtering : `set MSMPI` from `C:\Windows\System32` in the command prompt. You should obtain the following:
+You can check your installation by entering: `set MSMPI` from `C:\Windows\System32` in the command prompt. You should obtain the following:
 
 ```
 MSMPI_BENCHMARKS=C:\Program Files\Microsoft MPI\Benchmarks\
@@ -26,7 +26,7 @@ pip install -r requirements.txt
 
 ### Interfacing with FAST.Farm
 
-A simple tutorial to start a simulation with the FastFarm interface is available in the notebook `interface.ipynb` notebook. To properly launch the notebook, see the intructions below in *Running Examples Notebook*.
+A simple tutorial to start a simulation with the FastFarm interface is available in the notebook `interface.ipynb` notebook. To properly launch the notebook, see the instructions below in *Running Examples Notebook*.
 
 **Creating an interface from a WFCRL case:**
 

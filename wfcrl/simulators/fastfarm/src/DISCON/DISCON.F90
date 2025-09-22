@@ -308,7 +308,7 @@ ENDIF
 
    ! Main control calculations:
 
-IF ( ( iStatus >= 0 ) .AND. ( aviFAIL >= 0 ) )  THEN  ! Only compute control calculations if no error has occured and we are not on the last time step
+IF ( ( iStatus >= 0 ) .AND. ( aviFAIL >= 0 ) )  THEN  ! Only compute control calculations if no error has occurred and we are not on the last time step
 
 
 
