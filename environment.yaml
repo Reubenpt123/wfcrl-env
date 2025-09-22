@@ -1,0 +1,30 @@
+name: wfcrl
+channels:
+    - conda-forge
+dependencies:
+    - gymnasium 0.29.*
+    - mpi4py 3.1.*
+    - numpy 1.26.*
+    - pandas 2.2.*
+    - pettingzoo 1.24.*
+    - pyYAML 6.0.*
+    - FLORIS 3.5.*
+
+    - pytorch
+    - stable-baselines3
+    - ipykernel
+    - seaborn
+    - gfortran_linux-64
+    - pip
+
+    - tensorboard-data-server 0.6.*
+    - tensorboard-plugin-wit 1.8.*
+    - tensorboard 2.11.*
+    - tyro 0.8.*
+    - protobuf 3.20.*
+
+    - wandb
+    - python-dotenv
+
+    - cuda-cudart
+    - nccl
