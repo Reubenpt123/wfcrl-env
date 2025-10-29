@@ -252,7 +252,7 @@ fastfarm_ablaincourt = FastFarmCase(
     ycoords=ycoords,
     dt=3,
     buffer_window=1,
-    t_init=100,
+    t_init=300,
     set_wind_direction=True,
 )
 floris_ablaincourt = FlorisCase(
