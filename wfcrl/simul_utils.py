@@ -263,6 +263,11 @@ def create_ff_case(case: Dict, output_dir=None):
     out_fstf["TMax"] = max_time
     out_fstf["DT_Low"] = dt
     out_fstf["WrDisDT"] = out_fstf["DT_Low"]
+    
+    # Set VTK wind visualization output
+    vtk_wind = case.get("vtk_wind", False)
+    out_fstf["WrDisWind"] = vtk_wind
+    
     out_fstf.write(outputFSTF)
     return outputFSTF
 

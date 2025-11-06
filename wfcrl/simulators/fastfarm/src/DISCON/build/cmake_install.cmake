@@ -1,4 +1,4 @@
-# Install script for directory: /home/reuben/Code/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON
+# Install script for directory: /home/reuben/code/Wfcrl/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -43,25 +43,25 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  if(EXISTS "$ENV{DESTDIR}/home/reuben/Code/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/../../servo_dll/DISCON.dll" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}/home/reuben/Code/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/../../servo_dll/DISCON.dll")
+  if(EXISTS "$ENV{DESTDIR}/home/reuben/code/Wfcrl/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/../../servo_dll/DISCON.dll" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}/home/reuben/code/Wfcrl/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/../../servo_dll/DISCON.dll")
     file(RPATH_CHECK
-         FILE "$ENV{DESTDIR}/home/reuben/Code/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/../../servo_dll/DISCON.dll"
+         FILE "$ENV{DESTDIR}/home/reuben/code/Wfcrl/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/../../servo_dll/DISCON.dll"
          RPATH "")
   endif()
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/reuben/Code/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/../../servo_dll/DISCON.dll")
+   "/home/reuben/code/Wfcrl/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/../../servo_dll/DISCON.dll")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-  file(INSTALL DESTINATION "/home/reuben/Code/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/../../servo_dll" TYPE SHARED_LIBRARY FILES "/home/reuben/Code/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/build/DISCON.dll")
-  if(EXISTS "$ENV{DESTDIR}/home/reuben/Code/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/../../servo_dll/DISCON.dll" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}/home/reuben/Code/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/../../servo_dll/DISCON.dll")
+  file(INSTALL DESTINATION "/home/reuben/code/Wfcrl/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/../../servo_dll" TYPE SHARED_LIBRARY FILES "/home/reuben/code/Wfcrl/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/build/DISCON.dll")
+  if(EXISTS "$ENV{DESTDIR}/home/reuben/code/Wfcrl/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/../../servo_dll/DISCON.dll" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}/home/reuben/code/Wfcrl/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/../../servo_dll/DISCON.dll")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/home/reuben/miniconda3/envs/wfcrl/bin/x86_64-conda-linux-gnu-strip" "$ENV{DESTDIR}/home/reuben/Code/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/../../servo_dll/DISCON.dll")
+      execute_process(COMMAND "/home/reuben/miniconda3/envs/wfcrl/bin/x86_64-conda-linux-gnu-strip" "$ENV{DESTDIR}/home/reuben/code/Wfcrl/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/../../servo_dll/DISCON.dll")
     endif()
   endif()
 endif()
@@ -70,7 +70,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  include("/home/reuben/Code/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/build/CMakeFiles/DISCON.dir/install-cxx-module-bmi-Release.cmake" OPTIONAL)
+  include("/home/reuben/code/Wfcrl/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/build/CMakeFiles/DISCON.dir/install-cxx-module-bmi-Release.cmake" OPTIONAL)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -81,5 +81,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/reuben/Code/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/reuben/code/Wfcrl/wfcrl-env/wfcrl/simulators/fastfarm/src/DISCON/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

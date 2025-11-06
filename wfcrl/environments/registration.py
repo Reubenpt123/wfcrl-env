@@ -98,6 +98,9 @@ def make(env_id: str, controls: Union[dict, list] = ["yaw"], log=True, **env_kwa
     if "path_to_simulator" in env_kwargs:
         case.path_to_simulator = env_kwargs["path_to_simulator"]
         del env_kwargs["path_to_simulator"]
+    if "vtk_wind" in env_kwargs:
+        case.vtk_wind = env_kwargs["vtk_wind"]
+        del env_kwargs["vtk_wind"]
     env = env_class(
         interface=simulator_class,
         farm_case=case,

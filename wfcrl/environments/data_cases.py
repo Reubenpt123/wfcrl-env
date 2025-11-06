@@ -55,6 +55,7 @@ class FastFarmCase(FarmCase):
     set_wind_direction: bool = True
     wind_time_series: str = None
     path_to_simulator: str = None
+    vtk_wind: bool = False  # Write disturbed wind VTK files for visualization
 
     @property
     def interface_kwargs(self):
@@ -78,6 +79,7 @@ class FastFarmCase(FarmCase):
             "dt": self.dt,
             "wind_time_series": self.wind_time_series,
             "path_to_simulator": self.path_to_simulator,
+            "vtk_wind": self.vtk_wind,
         }
 
 

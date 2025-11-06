@@ -44,6 +44,27 @@ By default, your FAST.Farm executable is assumed to be located in `simulators/fa
 interface = FastFarmInterface(config, fast_farm_executable=path_to_exe)
 ```
 
+**Enabling VTK visualization output:**
+
+To enable VTK file generation for wind field visualization in ParaView or similar tools, set the `vtk_wind` parameter when creating a FastFarm case:
+
+```python
+from wfcrl.environments.data_cases import FastFarmCase
+
+config = FastFarmCase(
+    num_turbines=3,
+    xcoords=[0.0, 504.0, 1008.0],
+    ycoords=[0.0, 0.0, 0.0],
+    dt=3,
+    buffer_window=1,
+    t_init=25,
+    set_wind_direction=True,
+    vtk_wind=True  # Enable disturbed wind VTK output (default: False)
+)
+```
+
+VTK wind files will be generated in the simulation output directory and can be opened with ParaView for 3D visualization of the low- and high-resolution disturbed wind fields.
+
 
 **Creating an interface from existing configuration files:**
 Alternatively, if you already have your simulation files ready, you can just point towards the `.fstf` file:
@@ -52,7 +73,7 @@ ff_interface = FastFarmInterface(fstf_file=path_to_fstf)
 ```
 
 
-At every iteration, the FAST.Farm interace retrieves 12 measures per turbine:
+At every iteration, the FAST.Farm interface retrieves 12 measures per turbine:
 - 2 wind measurements: wind velocity and direction at the entrance of the farm
 - The current output power of the turbine
 - The yaw of the turbine
