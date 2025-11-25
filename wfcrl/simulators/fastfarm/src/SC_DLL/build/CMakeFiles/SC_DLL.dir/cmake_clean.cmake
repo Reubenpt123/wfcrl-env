@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/SC_DLL.dir/link.d"
   "CMakeFiles/SC_DLL.dir/SC_DLL.F90.o"
   "SC_DLL.dll"
   "SC_DLL.pdb"

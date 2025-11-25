@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/DISCON.dir/link.d"
   "CMakeFiles/DISCON.dir/DISCON.F90.o"
   "DISCON.dll"
   "DISCON.pdb"

@@ -6,7 +6,11 @@ Set up the WFCRL environment on your system using conda. (Tested on Linux Mint 2
 
 - git
 - conda
-- cmake (`sudo apt install cmake` on Ubuntu/Debian)
+
+The following can already be installed on the system or can be installed into the conda environment
+- cmake 
+- fortran compiler
+- c compiler
 
 ## Installation Steps
 
@@ -17,6 +21,7 @@ Set up the WFCRL environment on your system using conda. (Tested on Linux Mint 2
    ```
 
 2. **Create the conda environment**
+    remove the cmake, gfortran_linux-64, or gxx_linux-64 if they are not needed
    ```bash
    conda env create --file environment.yaml
    ```

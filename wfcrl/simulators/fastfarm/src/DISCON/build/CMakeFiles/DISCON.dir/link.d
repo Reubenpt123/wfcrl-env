@@ -1,0 +1,106 @@
+DISCON.dll: \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/crti.o \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../lib/gcc/x86_64-conda-linux-gnu/15.2.0/crtbeginS.o \
+  CMakeFiles/DISCON.dir/DISCON.F90.o \
+  /home/reuben/miniconda3/envs/wfcrl/lib/libmpifort.so \
+  /home/reuben/miniconda3/envs/wfcrl/lib/libmpi.so \
+  /home/reuben/miniconda3/envs/wfcrl/lib/libgfortran.so \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/libm.so \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/libm.so \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/libm.so \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib64/libm.so.6 \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib64/libmvec.so.1 \
+  /home/reuben/miniconda3/envs/wfcrl/lib/libgcc_s.so \
+  /home/reuben/miniconda3/envs/wfcrl/lib/libgcc_s.so \
+  /home/reuben/miniconda3/envs/wfcrl/lib/libgcc_s.so \
+  /home/reuben/miniconda3/envs/wfcrl/lib/libgcc_s.so.1 \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../lib/gcc/x86_64-conda-linux-gnu/15.2.0/libgcc.a \
+  /home/reuben/miniconda3/envs/wfcrl/lib/libquadmath.so \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/libm.so \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/libm.so \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/libm.so \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib64/libm.so.6 \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib64/libmvec.so.1 \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/libc.so \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/libc.so \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/libc.so \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib64/libc.so.6 \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/usr/lib64/libc_nonshared.a \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib64/ld-linux-x86-64.so.2 \
+  /home/reuben/miniconda3/envs/wfcrl/lib/libgcc_s.so \
+  /home/reuben/miniconda3/envs/wfcrl/lib/libgcc_s.so \
+  /home/reuben/miniconda3/envs/wfcrl/lib/libgcc_s.so \
+  /home/reuben/miniconda3/envs/wfcrl/lib/libgcc_s.so.1 \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../lib/gcc/x86_64-conda-linux-gnu/15.2.0/libgcc.a \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../lib/gcc/x86_64-conda-linux-gnu/15.2.0/crtendS.o \
+  /home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/crtn.o
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/crti.o:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../lib/gcc/x86_64-conda-linux-gnu/15.2.0/crtbeginS.o:
+
+CMakeFiles/DISCON.dir/DISCON.F90.o:
+
+/home/reuben/miniconda3/envs/wfcrl/lib/libmpifort.so:
+
+/home/reuben/miniconda3/envs/wfcrl/lib/libmpi.so:
+
+/home/reuben/miniconda3/envs/wfcrl/lib/libgfortran.so:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/libm.so:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/libm.so:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/libm.so:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib64/libm.so.6:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib64/libmvec.so.1:
+
+/home/reuben/miniconda3/envs/wfcrl/lib/libgcc_s.so:
+
+/home/reuben/miniconda3/envs/wfcrl/lib/libgcc_s.so:
+
+/home/reuben/miniconda3/envs/wfcrl/lib/libgcc_s.so:
+
+/home/reuben/miniconda3/envs/wfcrl/lib/libgcc_s.so.1:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../lib/gcc/x86_64-conda-linux-gnu/15.2.0/libgcc.a:
+
+/home/reuben/miniconda3/envs/wfcrl/lib/libquadmath.so:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/libm.so:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/libm.so:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/libm.so:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib64/libm.so.6:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib64/libmvec.so.1:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/libc.so:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/libc.so:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/libc.so:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib64/libc.so.6:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/usr/lib64/libc_nonshared.a:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib64/ld-linux-x86-64.so.2:
+
+/home/reuben/miniconda3/envs/wfcrl/lib/libgcc_s.so:
+
+/home/reuben/miniconda3/envs/wfcrl/lib/libgcc_s.so:
+
+/home/reuben/miniconda3/envs/wfcrl/lib/libgcc_s.so:
+
+/home/reuben/miniconda3/envs/wfcrl/lib/libgcc_s.so.1:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../lib/gcc/x86_64-conda-linux-gnu/15.2.0/libgcc.a:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../lib/gcc/x86_64-conda-linux-gnu/15.2.0/crtendS.o:
+
+/home/reuben/miniconda3/envs/wfcrl/bin/../x86_64-conda-linux-gnu/sysroot/lib/../lib/crtn.o:

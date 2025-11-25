@@ -14,7 +14,6 @@ dependencies:
     - stable-baselines3
     - ipykernel
     - seaborn
-    - gfortran_linux-64
     - pip
 
     - tensorboard-data-server 0.6.*
@@ -26,5 +25,6 @@ dependencies:
     - wandb
     - python-dotenv
 
-    - cuda-cudart
-    - nccl
+    - gfortran_linux-64
+    - gxx_linux-64
+    - cmake
