@@ -18,7 +18,7 @@ def repr(self):
 
 @dataclass
 class DefaultControl:
-    yaw = (-40, 40, 5)
+    yaw = (-40, 40, 1)
     pitch = (0, 45, 1)
     torque = (-2e4, 2e4, 1e3)
 
@@ -76,6 +76,7 @@ class FastFarmCase(FarmCase):
             "xcoords": self.xcoords,
             "ycoords": self.ycoords,
             "speed": 8,
+            "direction": 270,  # Wind direction in meteorological convention (270° = West to East, FAST.Farm default)
             "dt": self.dt,
             "wind_time_series": self.wind_time_series,
             "path_to_simulator": self.path_to_simulator,
@@ -254,7 +255,7 @@ fastfarm_ablaincourt = FastFarmCase(
     ycoords=ycoords,
     dt=3,
     buffer_window=1,
-    t_init=300,
+    t_init=10,
     set_wind_direction=True,
 )
 floris_ablaincourt = FlorisCase(

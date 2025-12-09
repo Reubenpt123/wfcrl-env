@@ -348,11 +348,13 @@ class FastFarmInterface(MPI_Interface):
         max_iter: int = int(1e4),
         fast_farm_executable: str = default_exe_path,
         default_avg_window: int = 1,
+        wind_direction: float = None,
     ):
         self._path_to_fastfarm_exe = fast_farm_executable
         self._simul_file = fstf_file
         self._inflow_file = get_inflow_file_path(fstf_file)
         self._num_resets = 0
+        self._wind_direction = wind_direction  # Store the wind direction used during case creation
 
         super().__init__(
             default_avg_window=default_avg_window,
@@ -403,8 +405,9 @@ class FastFarmInterface(MPI_Interface):
             name += f"__{case.num_turbines}T_{time.time()}"
             output_dir = f"__simul__/fastfarm/{name}/"
 
+        case_dict = case.dict()
         fstf_file = create_ff_case(
-            case.dict(),
+            case_dict,
             output_dir=output_dir,
         )
 
@@ -416,16 +419,24 @@ class FastFarmInterface(MPI_Interface):
             log_file=log_file,
             max_iter=case.max_iter,
             fast_farm_executable=fast_farm_executable,
+            wind_direction=case_dict.get("direction"),
         )
 
     def init(self, wind_speed: float = None, wind_direction: float = None):
-        # wind speed and direction ignored for now
+        # Wind direction is handled during case creation via layout rotation
         if wind_direction is not None:
-            warnings.warn(
-                f"Wind direction = {wind_direction} requested, but FastFarmInterface"
-                "cannot set wind direction in the simulator. Request will be ignored."
-            )
-
+            if self._wind_direction is None:
+                warnings.warn(
+                    f"Wind direction = {wind_direction}° requested, but no wind direction was set during case creation. "
+                    f"The layout has not been rotated. To set wind direction, specify it in FastFarmCase.simul_params['direction']."
+                )
+            elif wind_direction != self._wind_direction:
+                warnings.warn(
+                    f"Wind direction = {wind_direction}° requested, but case was created with direction = {self._wind_direction}°. "
+                    f"The wind farm layout was rotated for {self._wind_direction}° during case creation and cannot be changed at runtime. "
+                    f"To use a different wind direction, create a new case with the desired direction."
+                )
+        
         if wind_speed is not None:
             simul_wind_speed = read_inflow_info(self._inflow_file)
             if simul_wind_speed != wind_speed:

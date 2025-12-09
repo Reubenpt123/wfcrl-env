@@ -31,6 +31,30 @@ def clean_folder(path):
             os.remove(subpath)
 
 
+def rotate_layout(xcoords, ycoords, angle_degrees):
+    """
+    Rotate wind farm layout clockwise by angle_degrees.
+    
+    Args:
+        xcoords: List or array of x-coordinates
+        ycoords: List or array of y-coordinates
+        angle_degrees: Rotation angle in degrees (clockwise)
+    
+    Returns:
+        Tuple of (x_rotated, y_rotated) as lists
+    """
+    angle_rad = np.radians(angle_degrees)
+    cos_a, sin_a = np.cos(angle_rad), np.sin(angle_rad)
+    
+    xcoords = np.array(xcoords)
+    ycoords = np.array(ycoords)
+    
+    x_rot = xcoords * cos_a + ycoords * sin_a
+    y_rot = -xcoords * sin_a + ycoords * cos_a
+    
+    return x_rot.tolist(), y_rot.tolist()
+
+
 def create_floris_case(case: Dict, output_dir=None):
     template_dir = TEMPLATE_DIR.format("floris")
     output_dir = Path(CASE_DIR.format("floris") if output_dir is None else output_dir)
@@ -111,6 +135,15 @@ def create_ff_case(case: Dict, output_dir=None):
     assert case["num_turbines"] == len(case["xcoords"])
     xcoords = case["xcoords"]
     ycoords = case["ycoords"]
+    
+    # Rotate layout if wind direction is specified
+    # FAST.Farm wind blows W->E (270° in meteorological convention)
+    # To achieve wind_direction X°, rotate layout by (270 - X)° clockwise
+    if case.get("direction") is not None:
+        rotation_angle = 270 - case["direction"]
+        xcoords, ycoords = rotate_layout(xcoords, ycoords, rotation_angle)
+        print(f"Rotating wind farm layout by {rotation_angle}° clockwise for wind direction {case['direction']}° (meteorological convention)")
+    
     max_iter, dt = case["max_iter"], case["dt"]
 
     template_dir = TEMPLATE_DIR.format("fastfarm")
