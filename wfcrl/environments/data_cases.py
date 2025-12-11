@@ -37,6 +37,8 @@ class FarmCase:
     set_wind_speed: bool = False
     set_wind_direction: bool = False
     wind_time_series: str = None
+    wind_speed: float = 8.0
+    wind_direction: float = 270.0
 
     @property
     def interface_kwargs(self):
@@ -51,7 +53,7 @@ class FarmCase:
 
 class FastFarmCase(FarmCase):
     simulator: str = "FastFarm"
-    set_wind_speed: bool = False
+    set_wind_speed: bool = True
     set_wind_direction: bool = True
     wind_time_series: str = None
     path_to_simulator: str = None
@@ -75,8 +77,8 @@ class FastFarmCase(FarmCase):
         return {
             "xcoords": self.xcoords,
             "ycoords": self.ycoords,
-            "speed": 8,
-            "direction": 270,  # Wind direction in meteorological convention (270° = West to East, FAST.Farm default)
+            "speed": self.wind_speed,
+            "direction": self.wind_direction,
             "dt": self.dt,
             "wind_time_series": self.wind_time_series,
             "path_to_simulator": self.path_to_simulator,
@@ -99,8 +101,8 @@ class FlorisCase(FarmCase):
         return {
             "xcoords": self.xcoords,
             "ycoords": self.ycoords,
-            "direction": 270,
-            "speed": 8,
+            "direction": self.wind_direction,
+            "speed": self.wind_speed,
             "wind_time_series": self.wind_time_series,
         }
 

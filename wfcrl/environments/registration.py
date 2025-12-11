@@ -102,12 +102,12 @@ def make(env_id: str, controls: Union[dict, list] = ["yaw"], log=True, **env_kwa
         case.vtk_wind = env_kwargs["vtk_wind"]
         del env_kwargs["vtk_wind"]
     if "wind_speed" in env_kwargs:
-        # Set wind speed in case simul_params (for FastFarm and Floris)
-        case.simul_params["speed"] = env_kwargs["wind_speed"]
+        # Set wind speed as instance attribute (used in simul_params property)
+        case.wind_speed = env_kwargs["wind_speed"]
         del env_kwargs["wind_speed"]
     if "wind_direction" in env_kwargs:
-        # Set wind direction in case simul_params (rotates layout for FastFarm)
-        case.simul_params["direction"] = env_kwargs["wind_direction"]
+        # Set wind direction as instance attribute (rotates layout for FastFarm)
+        case.wind_direction = env_kwargs["wind_direction"]
         del env_kwargs["wind_direction"]
     env = env_class(
         interface=simulator_class,

@@ -33,7 +33,7 @@ def clean_folder(path):
 
 def rotate_layout(xcoords, ycoords, angle_degrees):
     """
-    Rotate wind farm layout clockwise by angle_degrees.
+    Rotate wind farm layout clockwise by angle_degrees and center around origin.
     
     Args:
         xcoords: List or array of x-coordinates
@@ -41,7 +41,7 @@ def rotate_layout(xcoords, ycoords, angle_degrees):
         angle_degrees: Rotation angle in degrees (clockwise)
     
     Returns:
-        Tuple of (x_rotated, y_rotated) as lists
+        Tuple of (x_rotated, y_rotated) as lists, centered around (0, 0)
     """
     angle_rad = np.radians(angle_degrees)
     cos_a, sin_a = np.cos(angle_rad), np.sin(angle_rad)
@@ -51,6 +51,12 @@ def rotate_layout(xcoords, ycoords, angle_degrees):
     
     x_rot = xcoords * cos_a + ycoords * sin_a
     y_rot = -xcoords * sin_a + ycoords * cos_a
+    
+    # Center the rotated coordinates around origin
+    x_center = (x_rot.min() + x_rot.max()) / 2
+    y_center = (y_rot.min() + y_rot.max()) / 2
+    x_rot = x_rot - x_center
+    y_rot = y_rot - y_center
     
     return x_rot.tolist(), y_rot.tolist()
 
@@ -219,11 +225,20 @@ def create_ff_case(case: Dict, output_dir=None):
         if case["speed"] is not None:
             inflow["HWindSpeed"] = case["speed"]
         mean_wind = inflow["HWindSpeed"]
-        min_width = max(ycoords) - min(ycoords)
+        
+        # Calculate required turbulence box extent based on rotated turbine positions
+        # Per FAST.Farm docs: Y0_Low ≤ WT_Y_min − 3*D_Rotor with additional clearance
+        # for wake meandering. Using 15D buffer to accommodate wake planes that 
+        # propagate downstream and meander laterally
+        extent_buffer = 3 * D  # Buffer in diameters on each side
+        min_width = (max(ycoords) - min(ycoords)) + 2 * extent_buffer
+        
         min_ny = int(np.ceil(min_width / fstf["dY_Low"]))
         ny, nz = max(min_ny, fstf["NY_Low"] - 1), fstf["NZ_Low"] - 1
         width, height = fstf["dY_Low"] * ny, fstf["dZ_Low"] * nz
         time = 200
+        
+        # Turbulence box centered at origin (turbines already centered by rotate_layout)
         y = np.linspace(-width / 2, width / 2, ny)
         z = np.linspace(0, height, nz)
         t = np.arange(0, time, fstf["DT_High"] / 10)

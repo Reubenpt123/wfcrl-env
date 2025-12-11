@@ -236,9 +236,7 @@ class WindFarmMDP:
         wind_speed, wind_direction = None, None
         if (options is not None) and "wind_speed" in options:
             wind_speed = options["wind_speed"]
-        elif not (
-            self.farm_case.set_wind_speed or bool(self.farm_case.wind_time_series)
-        ):
+        elif not (self.farm_case.set_wind_speed or bool(self.farm_case.wind_time_series)):
             wind_speed = 8 * rng.weibull(8)
             wind_speed = np.clip(
                 wind_speed,
