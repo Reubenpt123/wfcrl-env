@@ -57,11 +57,9 @@ class WindFarmMDP:
         farm_case: FarmCase,
         controls: dict,
         continuous_control: bool = True,
-        start_iter: int = 0,
-        horizon: int = int(1e6),
+        warmup_iters: int = 0,
+        total_sim_iters: int = int(1e6),
     ):
-        farm_case.max_iter = horizon
-        # if an interface is already instantiated
         if isinstance(interface, BaseInterface):
             self.interface = interface
             warn(
@@ -76,19 +74,26 @@ class WindFarmMDP:
             interface_kwargs = farm_case.interface_kwargs
             for key in farm_case.simul_params:
                 del interface_kwargs[key]
+            # Add total_sim_iters to interface kwargs
+            interface_kwargs["max_iter"] = total_sim_iters
             self.interface = interface(**interface_kwargs)
         else:
             path_to_simulator = farm_case.interface_kwargs.get("path_to_simulator", None)
-            interface_args = (
-                [farm_case] 
-                if path_to_simulator is None 
-                else [farm_case, path_to_simulator]
-            )
-            self.interface = interface.from_case(*interface_args)
+            output_dir = getattr(farm_case, 'output_dir', None)
+            # Set max_iter on farm_case so interfaces can access it via case.max_iter
+            farm_case.max_iter = total_sim_iters
+            interface_kwargs = {
+                "case": farm_case,
+            }
+            if path_to_simulator is not None:
+                interface_kwargs["fast_farm_executable"] = path_to_simulator
+            if output_dir is not None:
+                interface_kwargs["output_dir"] = output_dir
+            self.interface = interface.from_case(**interface_kwargs)
         self.num_turbines = farm_case.num_turbines
         self.continuous_control = continuous_control
-        self.horizon = horizon
-        self.start_iter = start_iter
+        self.total_sim_iters = total_sim_iters
+        self.warmup_iters = warmup_iters
         self.farm_case = farm_case
 
         # Check validity of controls
@@ -256,7 +261,8 @@ class WindFarmMDP:
             )
 
         self.interface.init(wind_speed, wind_direction)
-        for _ in range(self.start_iter + 1):
+        # Run warmup iterations before control starts
+        for _ in range(self.warmup_iters + 1):
             self.interface.update_command()
         start_state = OrderedDict(
             {attr: self.interface.get_measure(attr) for attr in self.state_attributes}

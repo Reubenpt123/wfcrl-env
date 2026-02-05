@@ -9,7 +9,7 @@ class RandomSimulator(BaseWrapper):
 
         # Retrieve variables
         self.continuous_control = self.env.continuous_control
-        self.max_num_steps = self.env.max_num_steps
+        self.episode_length = self.env.episode_length
         self._state = self.env.mdp.start_state
         self.num_turbines = self.env.mdp.num_turbines
         self.mdp = self.env.mdp
@@ -33,7 +33,7 @@ class AECLogWrapper(BaseWrapper):
 
         # Retrieve variables
         self.continuous_control = self.env.continuous_control
-        self.max_num_steps = self.env.max_num_steps
+        self.episode_length = self.env.episode_length
         self._state = self.env.mdp.start_state
         self.num_turbines = self.env.mdp.num_turbines
         self.mdp = self.env.mdp
@@ -67,7 +67,7 @@ class LogWrapper(Wrapper):
 
         # Retrieve variables
         self.continuous_control = self.env.continuous_control
-        self.max_num_steps = self.env.max_num_steps
+        self.episode_length = self.env.episode_length
         self._state = self.env.mdp.start_state
         self.num_turbines = self.env.mdp.num_turbines
         self.mdp = self.env.mdp

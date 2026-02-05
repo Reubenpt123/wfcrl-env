@@ -25,20 +25,23 @@ class MAWindFarmEnv(AECEnv):
         controls: dict,
         continuous_control: bool = True,
         reward_shaper: RewardShaper = DoNothingReward(),
-        start_iter: int = 0,
-        max_num_steps: int = 500,
+        warmup_iters: int = 0,
+        episode_length: int = 500,
         load_coef: float = 0.1
     ):
+        # Calculate total_sim_iters = warmup_iters + episode_length
+        total_sim_iters = warmup_iters + episode_length
+        
         self.mdp = WindFarmMDP(
             interface=interface,
             farm_case=farm_case,
             controls=controls,
             continuous_control=continuous_control,
-            start_iter=start_iter,
-            horizon=start_iter + max_num_steps,
+            warmup_iters=warmup_iters,
+            total_sim_iters=total_sim_iters,
         )
         self.continuous_control = continuous_control
-        self.max_num_steps = max_num_steps
+        self.episode_length = episode_length
         self._state = None
         self.num_turbines = self.mdp.num_turbines
         self.reward_shaper = reward_shaper
@@ -202,7 +205,7 @@ class MAWindFarmEnv(AECEnv):
             actuating_time = (
                 agent_accumulator[control] / self.mdp.ACTUATORS_RATE[control]
             )
-            actuating_frac = actuating_time / self._num_steps[agent] / self.farm_case.dt
+            actuating_frac = actuating_time / self._num_steps[agent] / self.farm_case.timestep_s
             if actuating_frac >= 0.1:
                 action[control][:] = 0.0
 

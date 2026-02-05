@@ -4,7 +4,7 @@ from typing import Callable, List, Union
 
 def repr(self):
     repr = f"Wind farm simulation on {self.simulator}: "
-    repr += f"{self.num_turbines} turbines - {self.max_iter} timesteps\n"
+    repr += f"{self.num_turbines} turbines\n"
     for arg, val in self.interface_kwargs.items():
         if arg[:2] != "__":
             if isinstance(val, dict):
@@ -30,15 +30,31 @@ class FarmCase:
     xcoords: Union[List, Callable]
     ycoords: Union[List, Callable]
 
-    dt: int
+    timestep_s: int  # Simulation timestep duration in seconds
     buffer_window: int = 300
-    t_init: int = 300
-    max_iter: int = 100
+    warmup_time_s: int = 300  # Initialisation time in seconds before control starts
     set_wind_speed: bool = False
     set_wind_direction: bool = False
     wind_time_series: str = None
     wind_speed: float = 8.0
     wind_direction: float = 270.0
+
+    @property
+    def max_iter(self):
+        """Returns total_sim_iters set by MDP, or calculates default if not set.
+        
+        This property is used by interface.from_case() methods.
+        The value is set dynamically by the MDP via _max_iter attribute.
+        """
+        if hasattr(self, '_max_iter'):
+            return self._max_iter
+        # Default fallback - large value if MDP hasn't set it
+        return int(1e6)
+    
+    @max_iter.setter
+    def max_iter(self, value):
+        """Set max_iter (total_sim_iters) - used by MDP."""
+        self._max_iter = value
 
     @property
     def interface_kwargs(self):
@@ -58,11 +74,11 @@ class FastFarmCase(FarmCase):
     wind_time_series: str = None
     path_to_simulator: str = None
     vtk_wind: bool = False  # Write disturbed wind VTK files for visualization
+    output_dir: str = None  # Output directory for FAST.Farm case files
 
     @property
     def interface_kwargs(self):
         params = {
-            "max_iter": self.max_iter,
             "num_turbines": self.num_turbines,
         }
         params.update(self.simul_params)
@@ -70,7 +86,7 @@ class FastFarmCase(FarmCase):
 
     @property
     def avg_window(self):
-        return int(self.buffer_window / self.dt)
+        return int(self.buffer_window / self.timestep_s)
 
     @property
     def simul_params(self):
@@ -79,7 +95,7 @@ class FastFarmCase(FarmCase):
             "ycoords": self.ycoords,
             "speed": self.wind_speed,
             "direction": self.wind_direction,
-            "dt": self.dt,
+            "dt": self.timestep_s,
             "wind_time_series": self.wind_time_series,
             "path_to_simulator": self.path_to_simulator,
             "vtk_wind": self.vtk_wind,
@@ -112,18 +128,18 @@ fastfarm_3t = FastFarmCase(
     num_turbines=3,
     xcoords=[0.0, 504.0, 1008.0],
     ycoords=[0.0, 0.0, 0.0],
-    dt=3,
+    timestep_s=3,
     buffer_window=1,
-    t_init=25,
+    warmup_time_s=25,
     set_wind_direction=True,
 )
 floris_3t = FlorisCase(
     num_turbines=3,
     xcoords=[0.0, 504.0, 1008.0],
     ycoords=[0.0, 0.0, 0.0],
-    dt=60,
+    timestep_s=60,
     buffer_window=1,
-    t_init=0,
+    warmup_time_s=0,
 )
 
 # 2 x 3 layouts
@@ -131,18 +147,18 @@ fastfarm_6t = FastFarmCase(
     num_turbines=6,
     xcoords=[0.0, 504.0, 1008.0, 0.0, 504.0, 1008.0],
     ycoords=[-252, -252, -252, 252, 252, 252],
-    dt=3,
+    timestep_s=3,
     buffer_window=1,
-    t_init=25,
+    warmup_time_s=25,
     set_wind_direction=True,
 )
 floris_6t = FlorisCase(
     num_turbines=6,
     xcoords=[0.0, 504.0, 1008.0, 0.0, 504.0, 1008.0],
     ycoords=[-252, -252, -252, 252, 252, 252],
-    dt=60,
+    timestep_s=60,
     buffer_window=1,
-    t_init=0,
+    warmup_time_s=0,
 )
 
 
@@ -167,18 +183,18 @@ fastfarm_16t = FastFarmCase(
     num_turbines=16,
     xcoords=xcoords,
     ycoords=ycoords,
-    dt=3,
+    timestep_s=3,
     buffer_window=1,
-    t_init=100,
+    warmup_time_s=100,
     set_wind_direction=True,
 )
 floris_16t = FlorisCase(
     num_turbines=16,
     xcoords=xcoords,
     ycoords=ycoords,
-    dt=60,
+    timestep_s=60,
     buffer_window=1,
-    t_init=0,
+    warmup_time_s=0,
 )
 
 # 32 turb layouts
@@ -204,18 +220,18 @@ fastfarm_32t = FastFarmCase(
     num_turbines=32,
     xcoords=xcoords,
     ycoords=ycoords,
-    dt=3,
+    timestep_s=3,
     buffer_window=1,
-    t_init=100,
+    warmup_time_s=100,
     set_wind_direction=True,
 )
 floris_32t = FlorisCase(
     num_turbines=32,
     xcoords=xcoords,
     ycoords=ycoords,
-    dt=60,
+    timestep_s=60,
     buffer_window=1,
-    t_init=0,
+    warmup_time_s=0,
 )
 
 # TCRWPF layouts
@@ -230,18 +246,18 @@ fastfarm_TCRWP = FastFarmCase(
     num_turbines=len(xcoords),
     xcoords=xcoords,
     ycoords=ycoords,
-    dt=3,
+    timestep_s=3,
     buffer_window=1,
-    t_init=100,
+    warmup_time_s=100,
     set_wind_direction=True,
 )
 floris_TCRWP = FlorisCase(
     num_turbines=len(xcoords),
     xcoords=xcoords,
     ycoords=ycoords,
-    dt=60,
+    timestep_s=60,
     buffer_window=1,
-    t_init=0,
+    warmup_time_s=0,
 )
 
 # Ablaincourt layouts
@@ -255,18 +271,18 @@ fastfarm_ablaincourt = FastFarmCase(
     num_turbines=7,
     xcoords=xcoords,
     ycoords=ycoords,
-    dt=3,
+    timestep_s=3,
     buffer_window=1,
-    t_init=10,
+    warmup_time_s=150,  # seconds = 2.5 minutes initialisation time
     set_wind_direction=True,
 )
 floris_ablaincourt = FlorisCase(
     num_turbines=7,
     xcoords=xcoords,
     ycoords=ycoords,
-    dt=60,
+    timestep_s=60,
     buffer_window=1,
-    t_init=0,
+    warmup_time_s=0,
 )
 
 # Horns Rev 1 layout
@@ -324,18 +340,18 @@ fastfarm_hornsrev1 = FastFarmCase(
     num_turbines=len(xcoords),
     xcoords=xcoords,
     ycoords=ycoords,
-    dt=3,
+    timestep_s=3,
     buffer_window=1,
-    t_init=100,
+    warmup_time_s=100,
     set_wind_direction=True,
 )
 floris_hornsrev1 = FlorisCase(
     num_turbines=len(xcoords),
     xcoords=xcoords,
     ycoords=ycoords,
-    dt=60,
+    timestep_s=60,
     buffer_window=1,
-    t_init=0,
+    warmup_time_s=0,
 )
 
 
@@ -366,18 +382,18 @@ fastfarm_ormonde = FastFarmCase(
     num_turbines=len(xcoords),
     xcoords=xcoords,
     ycoords=ycoords,
-    dt=3,
+    timestep_s=3,
     buffer_window=1,
-    t_init=100,
+    warmup_time_s=100,
     set_wind_direction=True,
 )
 floris_ormonde = FlorisCase(
     num_turbines=len(xcoords),
     xcoords=xcoords,
     ycoords=ycoords,
-    dt=60,
+    timestep_s=60,
     buffer_window=1,
-    t_init=0,
+    warmup_time_s=0,
 )
 
 # Horns Rev 2 wind farm layout
@@ -426,18 +442,18 @@ fastfarm_hornsrev2 = FastFarmCase(
     num_turbines=len(xcoords),
     xcoords=xcoords,
     ycoords=ycoords,
-    dt=3,
+    timestep_s=3,
     buffer_window=1,
-    t_init=100,
+    warmup_time_s=100,
     set_wind_direction=True,
 )
 floris_hornsrev2 = FlorisCase(
     num_turbines=len(xcoords),
     xcoords=xcoords,
     ycoords=ycoords,
-    dt=60,
+    timestep_s=60,
     buffer_window=1,
-    t_init=0,
+    warmup_time_s=0,
 )
 
 # WMR farm layout
@@ -467,18 +483,18 @@ fastfarm_wmr = FastFarmCase(
     num_turbines=len(xcoords),
     xcoords=xcoords,
     ycoords=ycoords,
-    dt=3,
+    timestep_s=3,
     buffer_window=1,
-    t_init=100,
+    warmup_time_s=100,
     set_wind_direction=True,
 )
 floris_wmr = FlorisCase(
     num_turbines=len(xcoords),
     xcoords=xcoords,
     ycoords=ycoords,
-    dt=60,
+    timestep_s=60,
     buffer_window=1,
-    t_init=0,
+    warmup_time_s=0,
 )
 
 
@@ -488,9 +504,9 @@ class FarmRowFastfarm(FastFarmCase):
     Simple farm with M aligned turbines.
     """
 
-    dt = 3
+    timestep_s = 3
     buffer_window = 1
-    t_init = 100
+    warmup_time_s = 100
     set_wind_direction = True
     set_wind_speed = False
 
@@ -509,9 +525,9 @@ class FarmRowFloris(FlorisCase):
     Simple farm with M aligned turbines.
     """
 
-    dt = 60
+    timestep_s = 60
     buffer_window = 1
-    t_init = 0
+    warmup_time_s = 0
     set_wind_direction = False
     set_wind_speed = False
 

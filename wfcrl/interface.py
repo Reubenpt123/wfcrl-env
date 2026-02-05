@@ -401,7 +401,7 @@ class FastFarmInterface(MPI_Interface):
         output_dir: str = None,
     ):
         if output_dir is None:
-            name = f"{case.simulator}__{case.t_init + case.max_iter * case.dt}s"
+            name = f"{case.simulator}__{case.warmup_time_s + case.max_iter * case.timestep_s}s"
             name += f"__{case.num_turbines}T_{time.time()}"
             output_dir = f"__simul__/fastfarm/{name}/"
 
@@ -542,7 +542,7 @@ class FlorisInterface(BaseInterface):
         output_dir: str = None,
     ):
         if output_dir is None:
-            name = f"{case.simulator}__{case.t_init + case.max_iter * case.dt}s"
+            name = f"{case.simulator}__{case.warmup_time_s + case.max_iter * case.timestep_s}s"
             name += f"__{case.num_turbines}T_{time.time()}"
             output_dir = f"__simul__/floris/{name}/"
 

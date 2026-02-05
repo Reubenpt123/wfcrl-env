@@ -59,8 +59,8 @@ def get_case(name: str, simulator: str):
         num_turbines=num_turbines,
         xcoords=cls.get_xcoords(num_turbines),
         ycoords=cls.get_ycoords(num_turbines),
-        dt=cls.dt,
-        t_init=cls.t_init,
+        timestep_s=cls.timestep_s,
+        warmup_time_s=cls.warmup_time_s,
         buffer_window=cls.buffer_window,
         set_wind_direction=cls.set_wind_direction,
         set_wind_speed=cls.set_wind_speed,
@@ -79,7 +79,22 @@ def validate_case(env_id, case):
 
 
 def make(env_id: str, controls: Union[dict, list] = ["yaw"], log=True, **env_kwargs):
-    """Return a wind farm benchmark environment"""
+    """Return a wind farm benchmark environment.
+
+    Args:
+        env_id: Environment identifier (e.g., "Dec_Ablaincourt_Floris")
+        controls: Control specification dict or list of control names
+        log: Whether to wrap environment with logging wrapper
+        **env_kwargs: Additional arguments passed to environment constructor
+            - episode_length: Number of steps per episode (replaces max_num_steps)
+            - max_num_steps: DEPRECATED - use episode_length instead
+            - load_coef: Load penalty coefficient
+            - wind_speed: Wind speed in m/s
+            - wind_direction: Wind direction in degrees
+
+    Returns:
+        WindFarmEnv or MAWindFarmEnv wrapped with logging if log=True
+    """
     if env_id not in registered_envs:
         raise ValueError(f"{env_id} is not a registered WFCRL benchmark environment.")
     match = re.match(env_pattern, env_id)
@@ -109,11 +124,26 @@ def make(env_id: str, controls: Union[dict, list] = ["yaw"], log=True, **env_kwa
         # Set wind direction as instance attribute (rotates layout for FastFarm)
         case.wind_direction = env_kwargs["wind_direction"]
         del env_kwargs["wind_direction"]
+    if "output_dir" in env_kwargs:
+        # Set output directory for simulation files (FastFarm only)
+        case.output_dir = env_kwargs["output_dir"]
+        del env_kwargs["output_dir"]
+    # Handle episode_length / max_num_steps naming
+    # Prefer episode_length, but support max_num_steps for backward compatibility
+    if "episode_length" in env_kwargs:
+        pass  # Use as-is
+    elif "max_num_steps" in env_kwargs:
+        # Backward compatibility: rename to episode_length
+        env_kwargs["episode_length"] = env_kwargs.pop("max_num_steps")
+
+    # Calculate warmup_iters from warmup_time_s
+    warmup_iters = math.ceil(case.warmup_time_s / case.timestep_s)
+
     env = env_class(
         interface=simulator_class,
         farm_case=case,
         controls=controls,
-        start_iter=math.ceil(case.t_init / case.dt),
+        warmup_iters=warmup_iters,
         **env_kwargs,
     )
 

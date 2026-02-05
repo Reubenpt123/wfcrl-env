@@ -20,27 +20,30 @@ class WindFarmEnv(gym.Env):
         controls: dict,
         continuous_control: bool = True,
         reward_shaper: RewardShaper = DoNothingReward(),
-        start_iter: int = 0,
-        max_num_steps: int = 500,
+        warmup_iters: int = 0,
+        episode_length: int = 500,
         load_coef: float = 0.1
     ):
+        # Calculate total_sim_iters = warmup_iters + episode_length
+        total_sim_iters = warmup_iters + episode_length
+        
         self.mdp = WindFarmMDP(
             interface=interface,
             farm_case=farm_case,
             controls=controls,
             continuous_control=continuous_control,
-            start_iter=start_iter,
-            horizon=start_iter + max_num_steps,
+            warmup_iters=warmup_iters,
+            total_sim_iters=total_sim_iters,
         )
         self.continuous_control = continuous_control
         self.action_space = self.mdp.action_space
         self.observation_space = self.mdp.state_space
         self._state = self.mdp.start_state
         self.num_turbines = self.mdp.num_turbines
-        self.max_num_steps = max_num_steps
+        self.episode_length = episode_length
         self.reward_shaper = reward_shaper
         self.controls = controls
-        self.dt = farm_case.dt
+        self.dt = farm_case.timestep_s
         self.farm_case = farm_case
         self.accumulated_actions = self.mdp.get_accumulated_actions()
         self.num_moves = 0
@@ -68,7 +71,7 @@ class WindFarmEnv(gym.Env):
             actuating_time = (
                 self.accumulated_actions[control] / self.mdp.ACTUATORS_RATE[control]
             )
-            actuating_frac = actuating_time / self.num_moves / self.farm_case.dt
+            actuating_frac = actuating_time / self.num_moves / self.farm_case.timestep_s
             actions[control][actuating_frac >= 0.1] = 0.0
 
         next_state, powers, loads, truncated = self.mdp.take_action(
